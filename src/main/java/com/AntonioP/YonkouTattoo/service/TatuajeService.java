@@ -1,0 +1,20 @@
+package com.AntonioP.YonkouTattoo.service;
+
+import com.AntonioP.YonkouTattoo.models.Tatuaje;
+import com.AntonioP.YonkouTattoo.repository.TatuajeRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TatuajeService {
+    private final TatuajeRepository tatuajeRepository;
+
+    public TatuajeService(TatuajeRepository tatuajeRepository) {
+        this.tatuajeRepository = tatuajeRepository;
+    }
+
+    public List<Tatuaje> listarTatuajes(){return tatuajeRepository.findAll();}
+
+    public void guardarTatuaje(Tatuaje tatuaje){tatuajeRepository.save(tatuaje);}
+}
