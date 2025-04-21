@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class PerfilUsuario {
 
     @Id
-    private String uid;
+    private String id;
 
     private String nombre;
     private String telefono;
@@ -17,12 +17,12 @@ public class PerfilUsuario {
 
     //Getters y Setters
 
-    public String getUid() {
-        return uid;
+    public String getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -47,5 +47,15 @@ public class PerfilUsuario {
 
     public void setEsTatuador(Boolean esTatuador) {
         this.esTatuador = esTatuador;
+    }
+
+    @Override
+    public String toString() {
+        return "PerfilUsuario{" +
+                "uid='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", esTatuador=" + esTatuador +
+                '}';
     }
 }
