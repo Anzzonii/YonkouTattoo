@@ -28,9 +28,9 @@ public class TatuajeRestController {
     }
 
     @PutMapping("/editar/{id}")
-    public String editarTatuaje(@PathVariable String id, @RequestBody Map<String, String> body){
+    public String editarTatuaje(@PathVariable Long id, @RequestBody Map<String, String> body){
 
-        Optional<Tatuaje> tatuaje = tatuajeService.getTatuajeById(Long.valueOf(id));
+        Optional<Tatuaje> tatuaje = tatuajeService.getTatuajeById(id);
 
         if(tatuaje.isPresent()){
             Tatuaje tatuajeEditado = tatuaje.get();
