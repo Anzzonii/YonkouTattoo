@@ -1,6 +1,7 @@
 package com.AntonioP.YonkouTattoo.service;
 
 import com.AntonioP.YonkouTattoo.models.Cita;
+import com.AntonioP.YonkouTattoo.models.PerfilUsuario;
 import com.AntonioP.YonkouTattoo.repository.CitaRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,9 @@ public class CitaService {
     public String borrarCita(Cita cita){
         citaRepository.delete(cita);
         return "cita borrada correctamente";
+    }
+
+    public List<Cita> getCitaByPerfil(PerfilUsuario usuario){
+        return citaRepository.getCitaByUsuario(usuario);
     }
 }
