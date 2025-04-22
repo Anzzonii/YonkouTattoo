@@ -1,6 +1,5 @@
 package com.AntonioP.YonkouTattoo.controller;
 
-import com.AntonioP.YonkouTattoo.models.Estilos;
 import com.AntonioP.YonkouTattoo.models.Tatuaje;
 import com.AntonioP.YonkouTattoo.service.TatuajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class TatuajeRestController {
 
         if(tatuaje.isPresent()){
             Tatuaje tatuajeEditado = tatuaje.get();
-            tatuaje.get().setEstilo(Estilos.valueOf(body.get("estilo")));
+            tatuaje.get().setEstilo(body.get("estilo"));
             tatuaje.get().setTitulo(body.get("titulo"));
             tatuajeService.guardarTatuaje(tatuajeEditado);
         }

@@ -15,8 +15,7 @@ public class Tatuaje {
     private String titulo;
 
     @NotBlank(message = "El estilo es obligatorio")
-    @Enumerated(EnumType.STRING)
-    private Estilos estilo;
+    private String estilo;
 
 
     private String imagenId;          //UID de firebase
@@ -44,11 +43,11 @@ public class Tatuaje {
         this.titulo = titulo;
     }
 
-    public Estilos getEstilo() {
+    public String getEstilo() {
         return estilo;
     }
 
-    public void setEstilo(Estilos estilo) {
+    public void setEstilo(String estilo) {
         this.estilo = estilo;
     }
 
