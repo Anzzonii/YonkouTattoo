@@ -1,7 +1,10 @@
 package com.AntonioP.YonkouTattoo.controller;
 
+import com.AntonioP.YonkouTattoo.models.Cita;
 import com.AntonioP.YonkouTattoo.models.PerfilUsuario;
+import com.AntonioP.YonkouTattoo.service.CitaService;
 import com.AntonioP.YonkouTattoo.service.PerfilUsuarioService;
+import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,9 @@ public class PerfilUsuarioRestController {
     @Autowired
     PerfilUsuarioService perfilService;
 
+    @Autowired
+    CitaService citaService;
+
     @GetMapping()
     public List<PerfilUsuario> getPerfiles(){
         return perfilService.listarPerfiles();
@@ -28,7 +34,7 @@ public class PerfilUsuarioRestController {
     }
 
     @PutMapping("/editar/{id}")
-    public String eidtarPerfil(@PathVariable String id, @RequestBody Map <String, String> body) {
+    public String eidtarPerfil(@PathVariable Long id, @RequestBody Map <String, String> body) {
         Optional<PerfilUsuario> perfilUsuario = perfilService.getPerfilById(id);
 
         if(perfilUsuario.isPresent()){
@@ -45,14 +51,20 @@ public class PerfilUsuarioRestController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public String borrarPerfil(@PathVariable String id){
+    public String borrarPerfil(@PathVariable Long id){
         Optional<PerfilUsuario> perfil = perfilService.getPerfilById(id);
 
         if(perfil.isPresent()){
+
+            List<Cita> citas = citaService.getCitaByPerfil(perfil.get());
+
+            for(Cita cita : citas){
+                citaService.borrarCita(cita);
+            }
+
             perfilService.borrarPerfil(perfil.get());
         }
 
         return "perfiles";
-
     }
 }

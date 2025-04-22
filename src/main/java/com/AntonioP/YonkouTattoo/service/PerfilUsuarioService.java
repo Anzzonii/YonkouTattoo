@@ -25,7 +25,7 @@ public class PerfilUsuarioService {
         return "perfil guardado correctamente";
     }
 
-    public Optional<PerfilUsuario> getPerfilById(String id){
+    public Optional<PerfilUsuario> getPerfilById(Long id){
         return perfilUsuarioRepository.findById(id);
     }
 

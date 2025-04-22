@@ -1,15 +1,19 @@
 package com.AntonioP.YonkouTattoo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "perfil_usuario")
 public class PerfilUsuario {
 
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "El uid no puede ser nulo")
+    private String uid;
 
     private String nombre;
     private String telefono;
@@ -17,12 +21,21 @@ public class PerfilUsuario {
 
     //Getters y Setters
 
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getNombre() {
@@ -52,7 +65,7 @@ public class PerfilUsuario {
     @Override
     public String toString() {
         return "PerfilUsuario{" +
-                "uid='" + id + '\'' +
+                "uid='" + uid + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", esTatuador=" + esTatuador +
