@@ -33,4 +33,8 @@ public class PerfilUsuarioService {
         perfilUsuarioRepository.delete(perfilUsuario);
         return "Perfil borrado correctamente";
     }
+
+    public Optional<PerfilUsuario> getPerfilByUid(String uid){
+        return perfilUsuarioRepository.findByUid(uid);
+    }
 }

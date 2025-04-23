@@ -4,4 +4,9 @@ import com.AntonioP.YonkouTattoo.models.PerfilUsuario;
 import com.AntonioP.YonkouTattoo.models.Tatuaje;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PerfilUsuarioRepository extends JpaRepository<PerfilUsuario, Long> {}
+import java.util.Optional;
+
+public interface PerfilUsuarioRepository extends JpaRepository<PerfilUsuario, Long> {
+
+    Optional<PerfilUsuario> findByUid(String uid);
+}
