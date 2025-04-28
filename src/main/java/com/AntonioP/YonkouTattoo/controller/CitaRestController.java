@@ -2,6 +2,7 @@ package com.AntonioP.YonkouTattoo.controller;
 
 import com.AntonioP.YonkouTattoo.models.Cita;
 import com.AntonioP.YonkouTattoo.service.CitaService;
+import com.AntonioP.YonkouTattoo.service.PerfilUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ public class CitaRestController {
 
     @Autowired
     CitaService citaService;
+
+    @Autowired
+    PerfilUsuarioService perfilUsuarioService;
 
     @GetMapping()
     public List<Cita> getCitas(){
@@ -35,6 +39,8 @@ public class CitaRestController {
             Cita citaEditada = cita.get();
 
             //Realizar las ediciones a la cita
+            citaEditada.setId(id);
+            citaEditada.setTatuador(perfilUsuarioService.getPerfilById(Long.valueOf(body.get("tatuador_id"))).get());
             citaEditada.setFechaHora(LocalDateTime.parse(body.get("fechaHora")));
 
             citaService.guardarCita(citaEditada);

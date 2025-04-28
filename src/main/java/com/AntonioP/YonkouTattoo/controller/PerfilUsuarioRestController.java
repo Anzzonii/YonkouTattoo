@@ -40,8 +40,9 @@ public class PerfilUsuarioRestController {
         if(perfilUsuario.isPresent()){
             PerfilUsuario perfilEditado = perfilUsuario.get();
 
-            //Realizar las ediciones a la cita
+            //Realizar las ediciones al perfil
             perfilEditado.setNombre(body.get("nombre"));
+            perfilEditado.setTelefono(body.get("telefono"));
 
             perfilService.guardarPerfil(perfilEditado);
 
