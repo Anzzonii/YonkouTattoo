@@ -3,6 +3,9 @@ package com.AntonioP.YonkouTattoo.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tatuaje")
 public class Tatuaje {
@@ -24,6 +27,8 @@ public class Tatuaje {
     @JoinColumn(name = "tatuador_id")
     private PerfilUsuario tatuador; //ID de firebase
 
+    @OneToOne(mappedBy = "tatuaje", cascade = CascadeType.ALL)
+    private Imagen imagen;
 
     //Getters y setters
 
@@ -65,5 +70,13 @@ public class Tatuaje {
 
     public void setTatuador(PerfilUsuario tatuador) {
         this.tatuador = tatuador;
+    }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 }
