@@ -36,8 +36,8 @@ public class ImagenService {
                 .orElseThrow(() -> new IllegalArgumentException("Tatuaje no encontrado"));
 
         // Si ya hay una imagen asociada, eliminarla
-        Optional<Imagen> existente = Optional.ofNullable(imagenRepository.findByTatuajeId(tatuajeId));
-        existente.ifPresent(imagenRepository::delete);
+        /*Optional<Imagen> existente = Optional.ofNullable(imagenRepository.findByTatuajeId(tatuajeId));
+        existente.ifPresent(imagenRepository::delete);*/
 
         // Guardar el archivo en disco
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
@@ -48,14 +48,14 @@ public class ImagenService {
         // Crear y guardar la entidad
         Imagen imagen = new Imagen();
         imagen.setNombreArchivo(fileName);
-        imagen.setTatuaje(tatuaje);
+        tatuaje.setImagen_id(imagen.getId());
 
         return imagenRepository.save(imagen);
     }
 
-    public Imagen obtenerImagenPorTatuaje(Long tatuajeId) {
+    /*public Imagen obtenerImagenPorTatuaje(Long tatuajeId) {
         return imagenRepository.findByTatuajeId(tatuajeId);
-    }
+    }*/
 
     public Resource cargarImagenComoRecurso(String fileName) throws IOException {
         Path path = Paths.get(uploadDir).resolve(fileName).normalize();
@@ -66,6 +66,10 @@ public class ImagenService {
         }
 
         return resource;
+    }
+
+    public Optional<Imagen> getImagenById(Long id){
+        return imagenRepository.findById(id);
     }
 }
 

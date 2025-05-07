@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.util.Optional;
 
 
 @RestController
@@ -34,20 +35,22 @@ public class ImagenController {
         }
     }
 
-    @GetMapping("/tatuaje/{id}")
-    public Imagen getImagenPorTatuaje(@PathVariable Long id) {
-        return imagenService.obtenerImagenPorTatuaje(id);
-    }
+    @GetMapping("/ver/{id}")
+    public ResponseEntity<Resource> devolverImagenPorId(@PathVariable Long id){
+        try{
+            Optional<Imagen> imagen = imagenService.getImagenById(id);
 
-    @GetMapping("/ver/{fileName:.+}")
-    public ResponseEntity<Resource> verImagen(@PathVariable String fileName) {
-        try {
-            Resource recurso = imagenService.cargarImagenComoRecurso(fileName);
-            return ResponseEntity.ok()
-                    .contentType(MediaTypeFactory.getMediaType(recurso).orElse(MediaType.APPLICATION_OCTET_STREAM))
-                    .body(recurso);
+            if(imagen.isPresent()){
+                Imagen imagenCogida = imagen.get();
+                Resource recurso = imagenService.cargarImagenComoRecurso(imagenCogida.getNombreArchivo());
+                return ResponseEntity.ok()
+                        .contentType(MediaTypeFactory.getMediaType(recurso).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                        .body(recurso);
+            }
+
+            return null;
         } catch (IOException e) {
-            return ResponseEntity.notFound().build();
+            throw new RuntimeException(e);
         }
     }
 }

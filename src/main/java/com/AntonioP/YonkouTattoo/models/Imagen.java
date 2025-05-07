@@ -11,10 +11,6 @@ public class Imagen {
 
     private String nombreArchivo;
 
-    @OneToOne
-    @JoinColumn(name = "tatuaje_id", unique = true)
-    private Tatuaje tatuaje;
-
     // Getters y setters
 
     public Long getId() {
@@ -33,11 +29,4 @@ public class Imagen {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public Tatuaje getTatuaje() {
-        return tatuaje;
-    }
-
-    public void setTatuaje(Tatuaje tatuaje) {
-        this.tatuaje = tatuaje;
-    }
 }

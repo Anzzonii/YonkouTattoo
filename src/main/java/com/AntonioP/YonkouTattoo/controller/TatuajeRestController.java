@@ -40,7 +40,6 @@ public class TatuajeRestController {
             tatuajeEditado.setTitulo(body.get("titulo"));
             tatuajeEditado.setEstilo(body.get("estilo"));
             tatuajeEditado.setTatuador(perfilUsuarioService.getPerfilById(Long.valueOf(body.get("tatuador_id"))).get());
-            tatuajeEditado.setImagenId("imagen_id");
 
             tatuajeService.guardarTatuaje(tatuajeEditado);
         }

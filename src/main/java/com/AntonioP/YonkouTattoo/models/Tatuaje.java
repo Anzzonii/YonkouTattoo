@@ -20,15 +20,13 @@ public class Tatuaje {
     @NotBlank(message = "El estilo es obligatorio")
     private String estilo;
 
-
-    private String imagenId;          //UID de firebase
-
     @ManyToOne
     @JoinColumn(name = "tatuador_id")
     private PerfilUsuario tatuador; //ID de firebase
 
-    @OneToOne(mappedBy = "tatuaje", cascade = CascadeType.ALL)
-    private Imagen imagen;
+    private Long imagen_id;
+
+    private boolean diseno;
 
     //Getters y setters
 
@@ -56,14 +54,6 @@ public class Tatuaje {
         this.estilo = estilo;
     }
 
-    public String getImagenId() {
-        return imagenId;
-    }
-
-    public void setImagenId(String imagenId) {
-        this.imagenId = imagenId;
-    }
-
     public PerfilUsuario getTatuador() {
         return tatuador;
     }
@@ -72,11 +62,19 @@ public class Tatuaje {
         this.tatuador = tatuador;
     }
 
-    public Imagen getImagen() {
-        return imagen;
+    public Long getImagen_id() {
+        return imagen_id;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setImagen_id(Long imagen_id) {
+        this.imagen_id = imagen_id;
+    }
+
+    public boolean isDiseno() {
+        return diseno;
+    }
+
+    public void setDiseno(boolean diseno) {
+        this.diseno = diseno;
     }
 }
