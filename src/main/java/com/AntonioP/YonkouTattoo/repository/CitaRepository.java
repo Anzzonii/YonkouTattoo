@@ -11,4 +11,6 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
 
     public List<Cita> getCitaByUsuario(PerfilUsuario usuario);
 
+    public List<Cita> getCitaByTatuador(PerfilUsuario tatuador);
+
 }

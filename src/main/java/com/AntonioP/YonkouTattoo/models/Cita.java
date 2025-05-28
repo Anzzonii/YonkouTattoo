@@ -2,7 +2,9 @@ package com.AntonioP.YonkouTattoo.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "cita")
@@ -20,7 +22,17 @@ public class Cita {
     @JoinColumn(name="tatuador_id")
     private PerfilUsuario tatuador;
 
-    private LocalDateTime fechaHora;
+    private LocalDate fecha;
+
+    private LocalTime hora;
+
+    private String descripcion;
+
+    private String imagen;
+
+    private String estado;
+
+
 
     //Getters y setters
 
@@ -48,11 +60,43 @@ public class Cita {
         this.tatuador = tatuador;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
