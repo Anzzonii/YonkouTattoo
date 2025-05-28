@@ -33,6 +33,17 @@ public class PerfilUsuarioRestController {
         return perfilService.guardarPerfil(perfil);
     }
 
+    @GetMapping("/{uid}")
+    public PerfilUsuario getPerfilByUid(@PathVariable String uid){
+        Optional<PerfilUsuario> perfilUsuario = perfilService.getPerfilByUid(uid);
+
+        if(perfilUsuario.isPresent()){
+            return perfilUsuario.get();
+        }
+
+        return null;
+    }
+
     @PutMapping("/editar/{id}")
     public String eidtarPerfil(@PathVariable Long id, @RequestBody Map <String, String> body) {
         Optional<PerfilUsuario> perfilUsuario = perfilService.getPerfilById(id);
@@ -46,6 +57,23 @@ public class PerfilUsuarioRestController {
 
             perfilService.guardarPerfil(perfilEditado);
 
+        }
+
+        return "perfiles";
+    }
+
+    @PutMapping("/editarRol/{id}")
+    public String editarRolUsuario(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<PerfilUsuario> perfilUsuario = perfilService.getPerfilById(id);
+
+        if (perfilUsuario.isPresent()) {
+            PerfilUsuario perfilEditado = perfilUsuario.get();
+
+            if (body.containsKey("esTatuador")) {
+                boolean esTatuador = Boolean.parseBoolean(body.get("esTatuador"));
+                perfilEditado.setEsTatuador(esTatuador);
+                perfilService.guardarPerfil(perfilEditado);
+            }
         }
 
         return "perfiles";

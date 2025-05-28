@@ -3,29 +3,30 @@ package com.AntonioP.YonkouTattoo.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirebaseConfig {
 
-    public void initialize() {
-        try{
-            //Credenciales de cuenta de la app de firebase
-            FileInputStream serviceAccount = new FileInputStream("src/main/resources/firebase/serviceAccountKey.json");
+    @PostConstruct
+    public void init() {
+        try {
+            InputStream serviceAccount = getClass().getResourceAsStream("/firebase/serviceAccountKey.json");
 
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .build();
+            if (FirebaseApp.getApps().isEmpty()) {
+                FirebaseOptions options = FirebaseOptions.builder()
+                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                        .build();
 
-            //Inicializacion de la app de firebase
-            if(FirebaseApp.getApps().isEmpty()){
                 FirebaseApp.initializeApp(options);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new IllegalStateException("No se pudo inicializar Firebase", e);
         }
     }
 }

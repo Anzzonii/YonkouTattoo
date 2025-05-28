@@ -17,6 +17,7 @@ public class PerfilUsuario {
 
     private String nombre;
     private String telefono;
+    private String email;
     private Boolean esTatuador;
 
     //Getters y Setters
@@ -62,12 +63,22 @@ public class PerfilUsuario {
         this.esTatuador = esTatuador;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "PerfilUsuario{" +
-                "uid='" + uid + '\'' +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", telefono='" + telefono + '\'' +
+                ", email='" + email + '\'' +
                 ", esTatuador=" + esTatuador +
                 '}';
     }
