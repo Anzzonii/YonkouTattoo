@@ -22,9 +22,9 @@ public class Tatuaje {
 
     @ManyToOne
     @JoinColumn(name = "tatuador_id")
-    private PerfilUsuario tatuador; //ID de firebase
+    private PerfilUsuario tatuador;
 
-    private Long imagen_id;
+    private String imagen;
 
     private boolean diseno;
 
@@ -62,12 +62,12 @@ public class Tatuaje {
         this.tatuador = tatuador;
     }
 
-    public Long getImagen_id() {
-        return imagen_id;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setImagen_id(Long imagen_id) {
-        this.imagen_id = imagen_id;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public boolean isDiseno() {
@@ -76,5 +76,17 @@ public class Tatuaje {
 
     public void setDiseno(boolean diseno) {
         this.diseno = diseno;
+    }
+
+    @Override
+    public String toString() {
+        return "Tatuaje{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", estilo='" + estilo + '\'' +
+                ", tatuador=" + tatuador +
+                ", imagen=" + imagen +
+                ", diseno=" + diseno +
+                '}';
     }
 }

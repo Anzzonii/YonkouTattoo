@@ -25,8 +25,20 @@ public class TatuajeRestController {
         return tatuajeService.listarTatuajes();
     }
 
+    @GetMapping("/{id}")
+    public Tatuaje getTatuajeById(@PathVariable Long id){
+        Optional<Tatuaje> tatuaje = tatuajeService.getTatuajeById(id);
+
+        if(tatuaje.isPresent()){
+            return tatuaje.get();
+        }
+
+        return null;
+    }
+
     @PostMapping("/crear")
     public String crearTatuaje(@RequestBody Tatuaje tatuaje){
+        System.out.println(tatuaje);
         return tatuajeService.guardarTatuaje(tatuaje);
     }
 
