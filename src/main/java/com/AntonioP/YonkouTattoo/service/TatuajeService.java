@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * CLASE QUE GESTIONA LOS METODOS QUE AFECTAN A LOS TATUAJES QUE SE VA A USAR EN LOS CONTROLADORES
+ */
 @Service
 public class TatuajeService {
     private final TatuajeRepository tatuajeRepository;

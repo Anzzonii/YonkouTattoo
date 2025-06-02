@@ -1,15 +1,20 @@
 package com.AntonioP.YonkouTattoo.controller;
 
 import com.AntonioP.YonkouTattoo.models.Tatuaje;
+import com.AntonioP.YonkouTattoo.service.CloudinaryService;
 import com.AntonioP.YonkouTattoo.service.PerfilUsuarioService;
 import com.AntonioP.YonkouTattoo.service.TatuajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * CLASE PARA MANEJAR LOS TATUAJES Y DISEÑOS GUARDADOS EN LA APLICACION
+ */
 @RestController
 @RequestMapping("/api/tatuajes")
 public class TatuajeRestController {
@@ -19,6 +24,9 @@ public class TatuajeRestController {
 
     @Autowired
     PerfilUsuarioService perfilUsuarioService;
+
+    @Autowired
+    CloudinaryService cloudinaryService;
 
     @GetMapping()
     public List<Tatuaje> getTatuajes(){
@@ -61,10 +69,12 @@ public class TatuajeRestController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public String borrarTatuaje(@PathVariable Long id) {
+    public String borrarTatuaje(@PathVariable Long id) throws IOException {
         Optional<Tatuaje> tatuaje = tatuajeService.getTatuajeById(id);
 
         if (tatuaje.isPresent()) {
+            Tatuaje tatu = tatuaje.get();
+            cloudinaryService.deleteFileByUrl(cloudinaryService.deleteFileByUrl(tatu.getImagen()).toString());
             tatuajeService.borrarTatuaje(tatuaje.get());
         }
 

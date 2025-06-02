@@ -6,6 +6,9 @@ import com.AntonioP.YonkouTattoo.service.CitaService;
 import com.AntonioP.YonkouTattoo.service.PerfilUsuarioService;
 import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -13,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * CLASE CONTROLADOR PARA MANEJAR LOS PERFILES DE USUARIO DE LA APLICACION
+ */
 @RestController
 @RequestMapping("/api/perfiles-usuario")
 public class PerfilUsuarioRestController {
@@ -79,21 +85,4 @@ public class PerfilUsuarioRestController {
         return "perfiles";
     }
 
-    @DeleteMapping("/borrar/{id}")
-    public String borrarPerfil(@PathVariable Long id){
-        Optional<PerfilUsuario> perfil = perfilService.getPerfilById(id);
-
-        if(perfil.isPresent()){
-
-            List<Cita> citas = citaService.getCitaByPerfil(perfil.get());
-
-            for(Cita cita : citas){
-                citaService.borrarCita(cita);
-            }
-
-            perfilService.borrarPerfil(perfil.get());
-        }
-
-        return "perfiles";
-    }
 }
