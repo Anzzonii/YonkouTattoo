@@ -7,6 +7,7 @@ import com.AntonioP.YonkouTattoo.service.PerfilUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * CONTROLADOR QUE MANEJA LAS CITAS DE LA APLICACION
+ */
 @RestController
 @RequestMapping("/api/citas")
 public class CitaRestController {
@@ -30,18 +34,19 @@ public class CitaRestController {
         return citaService.listarCitas();
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/{id}") //TATUDOR Y USUARIOS
     public Cita getCitaById(@PathVariable Long id){
         return citaService.getCitaById(id).get();
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/crear") //SOLO USUARIOS
     public String crearCita(@RequestBody Cita cita){
         System.out.println(cita.getUsuario());
         return citaService.guardarCita(cita);
     }
 
-    @GetMapping("/usuario/{uid}")
+    @GetMapping("/usuario/{uid}") //SOLO USUARIOS
     public List<Cita> getCitaByUsuario(@PathVariable String uid){
         Optional<PerfilUsuario> perfil = perfilUsuarioService.getPerfilByUid(uid);
 
@@ -54,7 +59,7 @@ public class CitaRestController {
         return Collections.emptyList();
     }
 
-    @GetMapping("/tatuador/{uid}")
+    @GetMapping("/tatuador/{uid}") //SOLO TATUADOR
     public List<Cita> getCitaByTatuador(@PathVariable String uid){
         Optional<PerfilUsuario> perfil = perfilUsuarioService.getPerfilByUid(uid);
 
@@ -67,37 +72,9 @@ public class CitaRestController {
         return Collections.emptyList();
     }
 
-    @PutMapping("/citas/editar/{id}")
-    public ResponseEntity<String> editarCita(@PathVariable Long id, @RequestBody Map<String, String> body) {
-        Optional<Cita> citaOpt = citaService.getCitaById(id); // Usa tu método de servicio
 
-        if (citaOpt.isPresent()) {
-            Cita cita = citaOpt.get();
+    @DeleteMapping("/borrar/{id}") //SOLO TATUADOR
 
-            // Campos que pueden ser modificados
-            if (body.containsKey("estado")) {
-                //cita.setAceptada(Boolean.parseBoolean(body.get("estado"))); // "aceptada" o "rechazada"
-            }
-
-            if (body.containsKey("descripcion")) {
-                cita.setDescripcion(body.get("descripcion"));
-            }
-
-            if (body.containsKey("imagenUrl")) {
-                //cita.setImagen_id(Long.valueOf(body.get("imagenUrl")));
-            }
-
-            // Agrega más campos si lo necesitas
-
-            citaService.guardarCita(cita);
-            return ResponseEntity.ok("Cita actualizada correctamente");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cita no encontrada");
-        }
-    }
-
-
-    @DeleteMapping("/borrar/{id}")
     public String borrarCita(@PathVariable Long id){
         Optional<Cita> cita = citaService.getCitaById(id);
 
@@ -109,7 +86,7 @@ public class CitaRestController {
 
     }
 
-    @PostMapping("/rechazar")
+    @PostMapping("/rechazar") //SOLO TATUADOR
     public ResponseEntity<String> rechazarCita(@RequestBody Map<String, Object> datos){
         try{
             Long idCita = Long.valueOf(datos.get("idCita").toString());
@@ -133,7 +110,7 @@ public class CitaRestController {
         }
     }
 
-    @PostMapping("/aceptar")
+    @PostMapping("/aceptar") //SOLO TATUADOR
     public ResponseEntity<String> aceptarCita(@RequestBody Map<String,Object> datos){
         try{
             Long idCita = Long.valueOf(datos.get("idCita").toString());
@@ -156,7 +133,7 @@ public class CitaRestController {
         }
     }
 
-    @PostMapping("/completar")
+    @PostMapping("/completar") //SOLO TATUADOR
     public ResponseEntity<String> completarCita(@RequestBody Map<String,Object> datos){
         try{
             Long idCita = Long.valueOf(datos.get("idCita").toString());

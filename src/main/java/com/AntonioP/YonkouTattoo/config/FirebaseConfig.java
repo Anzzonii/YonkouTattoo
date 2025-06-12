@@ -10,6 +10,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * CLASE DE CONFIGURACIÓN DE FIREBASE QUE INICIA EL SERVICIO DE LA CUENTA A TRAVÉS DE LAS PROPIEDADES MARCADAS EN EL ARCHIVO serviceAccountKey.json
+ */
 @Configuration
 public class FirebaseConfig {
 

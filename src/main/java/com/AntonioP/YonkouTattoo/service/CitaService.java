@@ -8,9 +8,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * CLASE QUE GESTIONA LOS METODOS QUE AFECTEN A LAS CITAS QUE SE VAN A UTILIZAR EN LOS CONTROLADORES
+ */
 @Service
 public class CitaService {
 
@@ -18,6 +22,9 @@ public class CitaService {
 
     @Autowired
     JavaMailSender mailSender;
+
+    @Autowired
+    CloudinaryService cloudinaryService;
 
     public CitaService(CitaRepository citaRepository) {
         this.citaRepository = citaRepository;
@@ -37,6 +44,13 @@ public class CitaService {
     }
 
     public String borrarCita(Cita cita){
+
+        try {
+            cloudinaryService.deleteFileByUrl(cita.getImagen());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         citaRepository.delete(cita);
         return "cita borrada correctamente";
     }

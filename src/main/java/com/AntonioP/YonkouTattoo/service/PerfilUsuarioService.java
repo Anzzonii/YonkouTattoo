@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * CLASE QUE GESTIONA LOS METODOS QUE AFECTEN A LOS PERFILES DE USUARIO QUE SE VAYAN A UTILIZAR EN LOS CONTROLADORES
+ */
 @Service
 public class PerfilUsuarioService {
 
